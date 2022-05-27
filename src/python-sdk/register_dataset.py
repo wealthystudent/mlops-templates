@@ -5,6 +5,8 @@ import os
 import argparse
 from azureml.core import Workspace, Datastore, Dataset
 
+    
+
 def parse_args():
     parser = argparse.ArgumentParser(description="Register dataset")
     parser.add_argument("-n", type=str, help="Name of the dataset you want to register")
@@ -20,6 +22,10 @@ def main():
     print(args)
     ws = Workspace.from_config()
     if args.t == "local":
+        
+        #Set default datastore
+        set_default_datastore(ws, 'stwestinmlopsaml')
+        
         print("local data")
         datastore = ws.get_default_datastore()
         datastore.upload(src_dir = args.l, target_path = args.p, overwrite = True, show_progress = True)
